@@ -28,8 +28,20 @@ Item::Item()
 }
 
 // Complete the Item class methods here
+string Item::getName()
+{
+    return (name_);
+}
 
+int Item::getQty()
+{
+    return (qty_);
+}
 
+double Item::getPrice()
+{
+    return (price_);
+}
 // Prototypes
 void printItems(const Item *items, const int len);
 Item *readData(const char *filename, int &len);
