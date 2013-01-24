@@ -27,20 +27,40 @@ Item::Item()
   name_ = ""; qty_ = -1; price_ = -1; 
 }
 
+Item::Item(string name, int qty, double price)
+{
+  name_ = name; qty_ = qty; price_ = price;
+}
+
 // Complete the Item class methods here
-string Item::getName()
+string Item::getName() const
 {
-    return (name_);
+    return name_;
 }
 
-int Item::getQty()
+void Item::setName(string name)
 {
-    return (qty_);
+    name_ = name;
 }
 
-double Item::getPrice()
+int Item::getQty() const
 {
-    return (price_);
+    return qty_;
+}
+
+void Item::setQty(int qty)
+{
+    qty_ = qty;
+}
+
+double Item::getPrice() const
+{
+    return price_;
+}
+
+void Item::setPrice(double price)
+{
+    price_ = price;
 }
 // Prototypes
 void printItems(const Item *items, const int len);
@@ -70,7 +90,11 @@ int main(int argc, char *argv[])
 // Print Item information in a tabular format
 void printItems(const Item *items, int len)
 {
-
+	cout<<setprecision(2)<<fixed<< setw (15)<<"Name"<<setw (10)<<"Qty"<<setw (10)<<"Price"<<endl;
+	for(int i=0; i<len; i++)
+	{
+		cout<<setw(15)<<items[i].getName()<<setw(10)<<items[i].getQty()<<setw(10)<<items[i].getPrice()<<endl;
+	}
 }
 
 
@@ -80,5 +104,44 @@ void printItems(const Item *items, int len)
 Item *readData(const char *filename, int &len)
 {
  
-  return NULL;
+  ifstream fin;
+  fin.open(filename);
+  if(fin.is_open())
+  {
+    fin>>len;
+    int size = len;
+  
+  
+  
+    Item * arrayitem = new Item[size];
+    //for(int i=0; i<size; i++)
+    //{
+       for(int j=0; j<size; j++)
+       {
+       string tempName;
+       fin>>tempName;
+       arrayitem[j].setName(tempName);
+       
+       int tempQty;
+       fin>>tempQty;
+       arrayitem[j].setQty(tempQty);
+       
+       double tempPrice;
+       fin>>tempPrice;
+       arrayitem[j].setPrice(tempPrice);
+       //j++;
+       }
+     
+   //}
+      return arrayitem;
+   }
+    
+    else
+    {
+      cout<<"File was not successfully opened.";
+      return NULL;
+    }
+ 
+  
+  
 }
